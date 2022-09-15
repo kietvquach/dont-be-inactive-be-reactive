@@ -1,25 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
+import { ApolloProvider } from '@apollo/client';
+import { Col, Row } from 'antd';
+import Layout, { Content, Footer, Header } from 'antd/lib/layout/layout';
+import apolloClient from './ApolloClient';
 import './App.css';
+import AddForm from './components/AddForm';
+import ItemList from './components/ItemList';
+import Timer from './components/Timer';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ApolloProvider client={apolloClient}>
+      <Layout style={{ minHeight: '100vh' }}>
+        <Header 
+          style={{ backgroundColor: 'white', textAlign: 'center' }}>
+            <h1>Don't be inactive, be reactive!</h1>
+        </Header>
+        <Content style={{ backgroundColor: 'white' }}>
+          <Row justify='center' align='top' gutter={[16, 16]}>
+            <Col span={8}>
+              <AddForm />
+            </Col>
+            <Col span={8}>
+              <ItemList />
+            </Col>
+          </Row>
+        </Content>
+        <Footer style={{ backgroundColor: 'white', position: 'sticky', bottom: '0', textAlign: 'center' }}>
+            <Timer />
+        </Footer>
+      </Layout>
+    </ApolloProvider>
   );
 }
 
